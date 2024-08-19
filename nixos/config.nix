@@ -170,13 +170,13 @@ in {
 
   users.users = {
     root = {
-      hashedPasswordFile = config.sops.secrets.root_pass.path;
+      # hashedPasswordFile = config.sops.secrets.root_pass.path;
     };
     ${myUserName} = {
       isNormalUser = true;
       description = myName;
       shell = pkgs.zsh;
-      hashedPasswordFile = config.sops.secrets.user_pass.path;
+      # hashedPasswordFile = config.sops.secrets.user_pass.path;
       extraGroups = ["wheel" "libvirtd" "input"];
     };
   };

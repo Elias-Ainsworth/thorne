@@ -6,7 +6,7 @@
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     # Custom
-    # config.nur.repos.mic92.hello-nur
+    config.nur.repos.mic92.hello-nur
 
     # Cli
     ## internet
@@ -69,7 +69,7 @@
     qalculate-qt
     glava
     nsxiv
-    dvd-zig
+    # dvd-zig
     gimp
 
     ## games

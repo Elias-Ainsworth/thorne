@@ -1,303 +1,188 @@
 {
   config,
   pkgs,
+  lib,
   ...
-}: {
-  stylix.targets.rofi.enable = false;
-  programs.rofi = {
-    enable = true;
-    cycle = true;
-    package = pkgs.rofi-wayland;
-    plugins = with pkgs; [
-      # HACK: temporary fix until ABI update
-      (rofi-calc.override {
-        rofi-unwrapped = rofi-wayland-unwrapped;
-      })
-      rofi-emoji-wayland
-    ];
-    extraConfig = {
-      modi = "drun,calc,window,emoji,run";
-      sidebar-mode = true;
-      terminal = "footclient";
-      show-icons = true;
-      kb-remove-char-back = "BackSpace";
-      kb-accept-entry = "Control+m,Return,KP_Enter";
-      kb-mode-next = "Control+l";
-      kb-mode-previous = "Control+h";
-      kb-row-up = "Control+k,Up";
-      kb-row-down = "Control+j,Down";
-      kb-row-left = "Control+u";
-      kb-row-right = "Control+d";
-      kb-delete-entry = "Control+semicolon";
-      kb-remove-char-forward = "";
-      kb-remove-to-sol = "";
-      kb-remove-to-eol = "";
-      kb-mode-complete = "";
-      display-drun = "";
-      display-run = "";
-      display-emoji = "󰞅";
-      display-calc = "󰃬";
-      display-window = "";
-      display-filebrowser = "";
-      drun-display-format = "{name} [<span weight='light' size='small'><i>({generic})</i></span>]";
-      window-format = "{w} · {c} · {t}";
+}: let
+  scripts = import ../pkgs/scripts.nix {inherit pkgs lib;};
+in {
+  systemd.user.services.changeCover = {
+    Unit = {
+      PartOf = ["graphical-session.target"];
+      After = ["graphical-session-pre.target"];
     };
-    theme = let
-      inherit (config.lib.formats.rasi) mkLiteral;
-    in {
-      "*" = with config.lib.stylix.colors.withHashtag; {
-        font = "${config.stylix.fonts.serif.name} ${toString config.stylix.fonts.sizes.applications}";
-        background = mkLiteral base00;
-        border = mkLiteral base01;
-        background-alt = mkLiteral base01;
-        foreground = mkLiteral base06;
-        foreground-alt = mkLiteral base02;
-        selected = mkLiteral base0C;
-        active = mkLiteral base0B;
-        urgent = mkLiteral base0D;
-      };
-      "window" = {
-        transparency = "real";
-        location = mkLiteral "center";
-        anchor = mkLiteral "center";
-        fullscreen = mkLiteral "false";
-        width = mkLiteral "900px";
-        x-offset = mkLiteral "0px";
-        y-offset = mkLiteral "0px";
-        enabled = mkLiteral "true";
-        border-radius = mkLiteral "10px";
-        border = mkLiteral "2px solid";
-        border-color = mkLiteral "@border";
-        cursor = "default";
-        background-color = mkLiteral "@background";
-      };
-      "mainbox" = {
-        enabled = true;
-        spacing = mkLiteral "0px";
-        margin = mkLiteral "0px";
-        padding = mkLiteral "0px";
-        border = mkLiteral "0px solid";
-        border-radius = mkLiteral "0px 0px 0px 0px";
-        border-color = mkLiteral "@border";
-        background-color = mkLiteral "transparent";
-        children = mkLiteral "[inputbar,message,listview]";
-      };
-      "inputbar" = {
-        enabled = true;
-        spacing = mkLiteral "0px";
-        margin = mkLiteral "0px";
-        padding = mkLiteral "0px";
-        border = mkLiteral "0px 0px 1px 0px";
-        border-radius = mkLiteral "0px";
-        border-color = mkLiteral "@border";
-        background-color = mkLiteral "@background";
-        text-color = mkLiteral "@foreground";
-        children = mkLiteral "[prompt,entry]";
-      };
-      "prompt" = {
-        enabled = true;
-        padding = mkLiteral "15px";
-        border = mkLiteral "0px 1px 0px 0px";
-        border-radius = mkLiteral "0px";
-        border-color = mkLiteral "@background-alt";
-        background-color = mkLiteral "inherit";
-        text-color = mkLiteral "inherit";
-      };
-      "textbox-prompt-colon" = {
-        enabled = true;
-        expand = false;
-        str = "::";
-        background-color = mkLiteral "inherit";
-        text-color = mkLiteral "inherit";
-      };
-      "entry" = {
-        enabled = true;
-        padding = mkLiteral "15px";
-        background-color = mkLiteral "inherit";
-        text-color = mkLiteral "inherit";
-        cursor = mkLiteral "text";
-        placeholder-color = mkLiteral "inherit";
-      };
-      "mode-switcher" = {
-        enabled = true;
-        spacing = mkLiteral "10px";
-        margin = mkLiteral "0px";
-        padding = mkLiteral "0px";
-        border = mkLiteral "0px solid";
-        border-radious = mkLiteral "0px";
-        background-color = mkLiteral "transparent";
-        text-color = mkLiteral "@foreground";
-      };
-      "button" = {
-        padding = mkLiteral "10px";
-        border-radius = mkLiteral "0px";
-        border = mkLiteral "0px solid";
-        border-color = mkLiteral "@border";
-        background-color = mkLiteral "@background-alt";
-        text-color = mkLiteral "inherit";
-        cursor = mkLiteral "pointer";
-      };
-      "button selected" = {
-        background-color = mkLiteral "@selected";
-        text-color = mkLiteral "@foreground";
-      };
-      "listview" = {
-        enabled = true;
-        columns = 1;
-        lines = 12;
-        cycle = true;
-        dynamic = true;
-        scrollbar = false;
-        layout = mkLiteral "vertical";
-        reverse = false;
-        fixed-height = true;
-        fixed-columns = true;
-        spacing = mkLiteral "0px";
-        margin = mkLiteral "0px";
-        padding = mkLiteral "0px";
-        border = mkLiteral "0px solid";
-        border-radius = mkLiteral "0px";
-        border-color = mkLiteral "@border";
-        background-color = mkLiteral "transparent";
-        text-color = mkLiteral "@foreground";
-        cursor = mkLiteral "default";
-      };
-      "element" = {
-        enabled = true;
-        spacing = mkLiteral "10px";
-        margin = mkLiteral "0px";
-        padding = mkLiteral "8px 15px";
-        border = mkLiteral "0px 0px 1px 0px";
-        border-radius = mkLiteral "0px";
-        border-color = mkLiteral "@border";
-        background-color = mkLiteral "transparent";
-        text-color = mkLiteral "@foreground";
-        cursor = mkLiteral "pointer";
-      };
-      "element normal.normal" = {
-        background-color = mkLiteral "inherit";
-        text-color = mkLiteral "inherit";
-      };
-      "element normal.urgent" = {
-        background-color = mkLiteral "@urgent";
-        text-color = mkLiteral "@active";
-      };
-      "element normal.active" = {
-        background-color = mkLiteral "@background";
-        text-color = mkLiteral "@active";
-      };
-      "element selected.normal" = {
-        background-color = mkLiteral "@selected";
-        text-color = mkLiteral "@background";
-      };
-      "element selected.urgent" = {
-        background-color = mkLiteral "@urgent";
-        text-color = mkLiteral "@foreground";
-      };
-      "element selected.active" = {
-        background-color = mkLiteral "@urgent";
-        text-color = mkLiteral "@background-alt";
-      };
-      "element-icon" = {
-        background-color = mkLiteral "transparent";
-        text-color = mkLiteral "inherit";
-        size = mkLiteral "32px";
-        cursor = mkLiteral "inherit";
-      };
-      "element-text" = {
-        background-color = mkLiteral "transparent";
-        text-color = mkLiteral "inherit";
-        cursor = mkLiteral "inherit";
-        vertical-align = mkLiteral "0.5";
-        horizontal-align = mkLiteral "0.0";
-      };
-      "message" = {
-        enabled = true;
-        margin = mkLiteral "0px";
-        padding = mkLiteral "8px 15px";
-        border = mkLiteral "0px solid";
-        border-radius = mkLiteral "0px 0px 0px 0px";
-        border-color = mkLiteral "@border";
-        background-color = mkLiteral "transparent";
-        text-color = mkLiteral "@foreground";
-      };
-      "textbox" = {
-        padding = mkLiteral "10px";
-        border = mkLiteral "0px solid";
-        border-radius = mkLiteral "0px";
-        border-color = mkLiteral "@border";
-        background-color = mkLiteral "@background-alt";
-        text-color = mkLiteral "@foreground";
-        vertical-align = mkLiteral "0.5";
-        horizontal-align = mkLiteral "0.0";
-        highlight = mkLiteral "none";
-        placeholder-color = mkLiteral "@foreground-alt";
-        blink = true;
-        markup = true;
-      };
-      "error-message" = {
-        padding = mkLiteral "0px";
-        border = mkLiteral "0px solid";
-        border-color = mkLiteral "@border";
-        border-radius = mkLiteral "0px";
-        background-color = mkLiteral "@background";
-        text-color = mkLiteral "@foreground";
-      };
+    Service = {
+      ExecStart = "${scripts.changeCover}";
+      Restart = "always";
+      RestartSec = "5s";
+    };
+    Install = {
+      WantedBy = ["graphical-session.target"];
     };
   };
-  xdg.dataFile."rofi/themes/preview.rasi".text = ''
-    @theme "custom"
-    icon-current-entry {
-      enabled: true;
-      size: 50%;
-      dynamic: true;
-      padding: 10px;
-      background-color: inherit;
-    }
-    listview-split {
-      background-color: transparent;
-      border-radius: 0px;
-      cycle: true;
-      dynamic : true;
-      orientation: horizontal;
-      border: 0px solid;
-      children: [listview,icon-current-entry];
-    }
-    listview {
-      lines: 10;
-    }
-    mainbox {
-      children: [inputbar,listview-split];
-    }
-    configuration {
-      display-filebrowser: "";
-      modi: "filebrowser";
-      filebrowser {
-        directories-first: false;
-        directory: "${pkgs.my-walls}/share/wallpapers";
-        command: "swww img -f Mitchell -t any --transition-fps 75 --transition-duration 2";
+  programs.spotify-player = {
+    enable = true;
+    enableZshIntegration = true;
+    settings = {
+      client_id = "1bc0214aae08496bb50af4cd51aa2c94";
+      client_port = 8080;
+      play_icon = " ";
+      pause_icon = " ";
+      enable_media_control = true;
+      default_device = "ur-mom";
+      theme = config.stylix.base16Scheme.slug;
+      seek_duration_secs = 10;
+      liked_icon = "󰋑 ";
+      border_type = "Hidden";
+      progress_bar_type = "Rectangle";
+      cover_img_scale = 1.9;
+      cover_img_length = 10;
+      layout = {
+        playback_window_position = "Bottom";
+      };
+      device = {
+        name = "ur mom";
+        device_type = "speaker";
+        bitrate = 320;
+        audio_cache = false;
+        autoplay = true;
+      };
+    };
+    actions = [
+      {
+        action = "ToggleLiked";
+        key_sequence = "C-l";
       }
-    }
-    @media (enabled: env(EPUB, false)) {
-      icon-current-entry {
-        size: 35%;
+      {
+        action = "AddToLibrary";
+        key_sequence = "C-a";
       }
-    }
-    @media (enabled: env(CLIP, false)) {
-      element {
-        children: [element-text];
+      {
+        action = "Follow";
+        key_sequence = "C-f";
       }
-      icon-current-entry {
-        enabled: true;
-        size: 35%;
+    ];
+    keymaps = [
+      {
+        command = "PreviousPage";
+        key_sequence = "esc";
       }
-      window {
-        width: 1200px;
+      {
+        command = "ClosePopup";
+        key_sequence = "q";
       }
-      listview {
-        lines: 15;
-        spacing: 4px;
+      {
+        command = "Repeat";
+        key_sequence = "R";
       }
-    }
-  '';
+      {
+        command = "VolumeUp";
+        key_sequence = "=";
+      }
+      {
+        command = "Shuffle";
+        key_sequence = "S";
+      }
+      {
+        command = "Quit";
+        key_sequence = "C-c";
+      }
+      {
+        command = "SeekForward";
+        key_sequence = "L";
+      }
+      {
+        command = "SeekBackward";
+        key_sequence = "H";
+      }
+      {
+        command = "PageSelectPreviousOrScrollUp";
+        key_sequence = "C-u";
+      }
+      {
+        command = "PageSelectNextOrScrollDown";
+        key_sequence = "C-d";
+      }
+      {
+        command = "LikedTrackPage";
+        key_sequence = "g o";
+      }
+    ];
+    themes = [
+      {
+        name = config.stylix.base16Scheme.slug;
+        palette = with config.lib.stylix.colors.withHashtag; {
+          black = base00;
+          foreground = base03;
+          bright_black = base01;
+          yellow = base02;
+          green = base03;
+          bright_yellow = base04;
+          white = base05;
+          bright_white = base06;
+          cyan = base07;
+          bright_cyan = base08;
+          blue = base09;
+          bright_red = base0A;
+          bright_blue = base0B;
+          red = base0C;
+          bright_green = base0D;
+          magenta = base07;
+          bright_magenta = base0F;
+        };
+        component_style = {
+          block_title = {
+            fg = "BrightGreen";
+            modifiers = ["Italic" "Bold"];
+          };
+          like = {
+            fg = "Red";
+            modifiers = ["Bold"];
+          };
+          playback_track = {
+            fg = "BrightMagenta";
+            modifiers = ["Italic"];
+          };
+          playback_album = {
+            fg = "BrightRed";
+            modifiers = ["Italic"];
+          };
+          playback_artists = {
+            fg = "BrightCyan";
+            modifiers = [];
+          };
+          playback_metadata = {
+            fg = "BrightBlue";
+            modifiers = [];
+          };
+          playback_progress_bar = {
+            fg = "BrightGreen";
+            modifiers = ["Italic"];
+          };
+          current_playing = {
+            fg = "Red";
+            modifiers = ["Bold" "Italic"];
+          };
+          playlist_desc = {
+            fg = "White";
+            modifiers = ["Italic"];
+          };
+          page_desc = {
+            fg = "Magenta";
+            modifiers = ["Bold" "Italic"];
+          };
+          table_header = {
+            fg = "Blue";
+            modifiers = ["Bold"];
+          };
+          border = {fg = "BrightYellow";};
+          selection = {
+            fg = "Red";
+            modifiers = ["Bold" "Reversed"];
+          };
+          secondary_row = {bg = "BrightBlack";};
+        };
+      }
+    ];
+  };
 }

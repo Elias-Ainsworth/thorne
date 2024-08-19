@@ -8,6 +8,7 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nur.url = "github:nix-community/NUR";
     nix-colors.url = "github:misterio77/nix-colors";
     stylix = {
       url = "github:danth/stylix";
@@ -62,8 +63,13 @@
     myName = "Elias Ainsworth";
     mailId = "pilum-murialis.toge@proton.me";
 
+    nurNoPkgs = import inputs.nur {
+      nurpkgs = import nixpkgs {inherit system;};
+    };
+    
     system = "x86_64-linux";
     pkgs = import nixpkgs {inherit system;};
+    
     caches = {
       nix.settings = {
         builders-use-substitutes = true;
@@ -93,12 +99,14 @@
   in {
     nixosConfigurations.${pcName} = nixpkgs.lib.nixosSystem {
       specialArgs = {
+        inherit inputs nurNoPkgs;
         inherit pcName myUserName myName mailId;
       };
       modules = with inputs; [
         caches
         overlays
         stylix.nixosModules.stylix
+        nur.nixosModules.nur
         home-manager.nixosModules.home-manager
         sops-nix.nixosModules.sops
         (import ./nixos/config.nix)

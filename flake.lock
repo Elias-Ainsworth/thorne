@@ -225,11 +225,11 @@
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
-        "lastModified": 1723898192,
-        "narHash": "sha256-MXIK60F11Tc7B+vRcLOWPx6IweAu3u54YpdByM/9OuA=",
+        "lastModified": 1724070736,
+        "narHash": "sha256-iXZYKklAUc8d+iD3PkYRuQzmLML8KaWSGDaqimdxKbI=",
         "owner": "cachix",
         "repo": "devenv",
-        "rev": "64bb347c3b0cee39da55ec6f52a5bef8d833c431",
+        "rev": "da16bbe0c929db112ae9e57a67705396e36d0a27",
         "type": "github"
       },
       "original": {
@@ -669,11 +669,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1724016119,
-        "narHash": "sha256-ricYM9Ethzai2l2qCK6Bkgfg53FtzWuzaVIDzZ7Ve1Y=",
+        "lastModified": 1724072529,
+        "narHash": "sha256-r82c8M4zUWeyAwe+6VvEaLt8oalvqibtDe0fntHj2qQ=",
         "ref": "refs/heads/main",
-        "rev": "83d88fa56467a2b749fb2320e1595281107bd326",
-        "revCount": 5111,
+        "rev": "01e3da4d51927427860368c88a523f47c479b710",
+        "revCount": 5113,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/hyprwm/Hyprland"
@@ -1189,16 +1189,31 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1724017104,
-        "narHash": "sha256-1pMyOYqBx7L/w1I/HEa8L01Wx7mZH3QrhDk/8XvDSSw=",
+        "lastModified": 1724036242,
+        "narHash": "sha256-/+gGF0tsAg2dF7Ds9Yt9Sne7ETmILKz1QVnDr+T2S2g=",
         "owner": "nix-community",
         "repo": "nixvim",
-        "rev": "7a11b66f11d292b59571dad85fd1501dbd9bd0c1",
+        "rev": "312db6b6e2d98dd8d22223fe383c7e0b4bab60c6",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
         "repo": "nixvim",
+        "type": "github"
+      }
+    },
+    "nur": {
+      "locked": {
+        "lastModified": 1724075102,
+        "narHash": "sha256-lpk2Lz3YQDp8ahvBcxho2FqmAz+9z1OWHbQ1uwAkp68=",
+        "owner": "nix-community",
+        "repo": "NUR",
+        "rev": "645be3c7559425d8c6ce73ffaef740e4c42d1056",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "NUR",
         "type": "github"
       }
     },
@@ -1291,6 +1306,7 @@
         "nix-gaming": "nix-gaming",
         "nixpkgs": "nixpkgs_5",
         "nixvim": "nixvim",
+        "nur": "nur",
         "sops-nix": "sops-nix",
         "stylix": "stylix"
       }
