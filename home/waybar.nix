@@ -112,16 +112,20 @@ in {
         # };
         "battery" = {
           states = {
-            warning = 50;
-            critical = 25;
+            verygood = 85;
+            good = 70;
+            notgood = 55;
+            bad = 40;
+            uhoh = 25;
+            dead = 10;
           };
           size = 19;
           format = "{icon}";
-          # format-charging = "";
-          format-charging = "󰂄";
           format-alt = "bat: {capacity}%";
+          format-icons = ["󰂃" "󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹"];
+          format-charging = "󰂄";
+          # format-charging = "";
           # format-icons = ["" "" "" "" ""];
-          format-icons = ["󰂃" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹"];
           tooltip = "{icon} ({capacity}%)";
         };
         "group/music" = {
@@ -150,7 +154,7 @@ in {
             "image#toggle"
             "custom/off"
             "custom/again"
-            "idle_inhibitor"
+            "custom/pushEverything"
             "custom/shot"
             "custom/close"
             "custom/osk"
@@ -186,13 +190,17 @@ in {
           on-click = "reboot";
           tooltip-format = "reboot";
         };
-        "idle_inhibitor" = {
-          format = "{icon}";
-          on-click-right = "dvd";
-          format-icons = {
-            activated = "";
-            deactivated = "";
-          };
+        # "idle_inhibitor" = {
+        #   format = "{icon}";
+        #   on-click-right = "dvd";
+        #   format-icons = {
+        #     activated = "";
+        #     deactivated = "";
+        #   };
+        # };
+        "custom/pushEverything" = {
+          format = "󰊢";
+          on-click = "cd ~/thorne && git add . && git commit -m 'test' && git push && cd ~/assets && git add . && git commit -m 'test' && git push";
         };
         "privacy" = {
           icon-size = 16;
@@ -281,7 +289,7 @@ in {
         #taskbar,
         #workspaces,
         #image.toggle,
-        #idle_inhibitor,
+        #custom-pushEverything,
         #privacy,
         #gamemode,
         #custom-off,
@@ -328,14 +336,27 @@ in {
           color: @base0D;
         }
         #battery {
+          color: @base0D;
+        }
+        #battery.verygood {
+          color: @base0B;
+        }
+        #battery.good {
+          color: @base08;
+        }
+        #battery.notgood {
+          color: @base0F;
+        }
+        #battery.bad {
           color: @base0E;
         }
-        #battery.warning {
+        #battery.uhoh {
           color: @base0C;
         }
-        #battery.critical {
+        #battery.dead {
           color: @base0A;
         }
+
         #pulseaudio {
           color: @base0D;
         }
@@ -368,7 +389,7 @@ in {
           -gtk-icon-effect: highlight;
           background-color: @base0A;
         }
-        #idle_inhibitor:hover,
+        #custom-pushEverything:hover,
         #taskbar button:hover,
         #custom-shot:hover,
         #custom-off:hover,
@@ -383,7 +404,7 @@ in {
         #privacy,
         #gamemode,
         #image.toggle,
-        #idle_inhibitor,
+        #custom-pushEverything,
         #custom-off,
         #custom-shot,
         #custom-again,
@@ -398,7 +419,6 @@ in {
           margin-left: 0px;
           padding-left: 0px;
         }
-        #idle_inhibitor.activated,
         #privacy-item,
         #custom-off,
         #custom-again,
@@ -408,7 +428,6 @@ in {
         #custom-osk.on {
           color: @base06;
         }
-        #idle_inhibitor.deactivated,
         #custom-gammastep.off,
         #custom-osk.off {
           color: @base02;
