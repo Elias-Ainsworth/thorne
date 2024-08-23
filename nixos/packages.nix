@@ -38,7 +38,7 @@
     wl-clipboard
     translate-shell
     pulsemixer
-    nvtopPackages.nvidia
+    # nvtopPackages.nvidia
     lutgen
     gammastep
     hyprpicker
@@ -63,7 +63,7 @@
     calibre
     vesktop
     firefox
-    librewolf
+    # librewolf
     qbittorrent
     nautilus
     qalculate-qt
@@ -77,11 +77,14 @@
     prismlauncher
     steam-run
     protonup-qt
+    wineWowPackages.waylandFull
 
     ### emulators
-    desmume
-    mgba
-    snes9x-gtk
+    # wineWowPackages.stable
+    # winetricks
+    # desmume
+    # mgba
+    # snes9x-gtk
     #config.nur.repos.chigyutendies.citra-nightly
     #config.nur.repos.chigyutendies.suyu-dev
 
@@ -93,7 +96,7 @@
     xwayland
 
     # dev
-    ## doom emacs
+    ## doom
     (aspellWithDicts (dicts: with dicts; [en en-computers en-science]))
     wordnet
     cmigemo

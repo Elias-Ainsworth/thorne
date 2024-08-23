@@ -19,7 +19,7 @@ in {
         position = "top";
         modules-left = ["hyprland/workspaces" "group/win"];
         modules-center = ["image#cover" "group/music"];
-        modules-right = ["network" "pulseaudio" "clock#date" "clock#time" "gamemode" "group/custom" "privacy" "tray"];
+        modules-right = ["battery" "network" "pulseaudio" "clock#date" "clock#time" "gamemode" "group/custom" "privacy" "tray"];
         "hyprland/workspaces" = {
           format = "{icon}";
           show-special = true;
@@ -76,21 +76,14 @@ in {
           format = "{:%H:%M}";
           tooltip-format = "{tz_list}";
           timezones = [
-            "Asia/Kolkata"
-            "Europe/Berlin"
+            "America/Phoenix"
             "Asia/Tokyo"
+            "Europe/Berlin"
           ];
         };
         "clock#date" = {
           format = "{:%a %d %b}";
           tooltip-format = "<tt><big>{calendar}</big></tt>";
-        };
-        "network" = {
-          format-ethernet = "{bandwidthUpBytes} {bandwidthDownBytes}";
-          min-width = 20;
-          fixed-width = 20;
-          interface = "enp7s0";
-          interval = 1;
         };
         "pulseaudio" = {
           format = "{volume}%";
@@ -98,6 +91,38 @@ in {
           on-click = "pulsemixer --toggle-mute";
           on-scroll-up = "pulsemixer --change-volume +5";
           on-scroll-down = "pulsemixer --change-volume -5";
+        };
+        "network" = {
+          interface = "wlp3s0";
+          format-wifi = "{essid}";
+          format-ethernet = "{bandwidthUpBytes} {bandwidthDownBytes}";
+          tooltip-format-wifi = "{essid} ({signalStrength}%)";
+          min-width = 20;
+          fixed-width = 20;
+          interval = 1;
+        };
+        # "battery" = {
+        #   # bat = "BAT0";
+        #   states = {
+        #     warning = 30;
+        #     critical = 15;
+        #   };
+        #   format = "{capacity}%";
+        #   max-length = 25;
+        # };
+        "battery" = {
+          states = {
+            warning = 50;
+            critical = 25;
+          };
+          size = 19;
+          format = "{icon}";
+          # format-charging = "";
+          format-charging = "󰂄";
+          format-alt = "bat: {capacity}%";
+          # format-icons = ["" "" "" "" ""];
+          format-icons = ["󰂃" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹"];
+          tooltip = "{icon} ({capacity}%)";
         };
         "group/music" = {
           orientation = "vertical";
@@ -208,9 +233,9 @@ in {
           '';
         };
         "image#cover" = {
-          on-click = "pkill nsxiv || nsxiv /tmp/cover.jpg";
-          on-click-right = "pkill sptlrx || footclient -T quick -o 'main.font=${config.stylix.fonts.monospace.name}:size=30' sptlrx";
-          on-click-middle = scripts.glavaShow;
+          on-click = "pkill sptlrx || footclient -T quick -o 'main.font=${config.stylix.fonts.monospace.name}:size=30' sptlrx";
+          # on-click-right = "rm -rf /tmp/cover.jpg";
+          on-click-right = scripts.glavaShow;
           path = "/tmp/cover.jpg";
           size = 31;
           signal = 8;
@@ -220,10 +245,10 @@ in {
           format-paused = "{status_icon} <i>{title}</i>";
           on-scroll-up = "playerctld shift";
           on-scroll-down = "playerctld unshift";
-          max-length = 80;
+          max-length = 65;
           status-icons = {
-            playing = "";
-            paused = "";
+            playing = "";
+            paused = "";
           };
         };
       };
@@ -244,6 +269,11 @@ in {
         }
         #clock,
         #mpris,
+        #battery {
+          padding: 2px 5px;
+          margin-left: 5px;
+          margin-right: 5px;
+        }
         #network,
         #tray,
         #pulseaudio,
@@ -293,6 +323,18 @@ in {
         #mpris {
           margin-top: 2px;
           color: @base09;
+        }
+        #battery.charging {
+          color: @base0D;
+        }
+        #battery {
+          color: @base0E;
+        }
+        #battery.warning {
+          color: @base0C;
+        }
+        #battery.critical {
+          color: @base0A;
         }
         #pulseaudio {
           color: @base0D;

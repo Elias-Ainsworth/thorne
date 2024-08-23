@@ -55,10 +55,10 @@ in {
 
   xdg.configFile."nixpkgs/config.nix".source = ./nixpkgs.nix;
 
-  qt = {
-    enable = true;
-    platformTheme.name = "gtk3";
-  };
+  # qt = {
+  #   enable = true;
+  #   platformTheme.name = "gtk3";
+  # };
 
   stylix.targets.gtk.extraCss = with config.lib.stylix.colors.withHashtag; ''
     @define-color accent_color ${base0A};

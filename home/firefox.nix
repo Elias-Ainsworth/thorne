@@ -189,11 +189,6 @@ in {
                 keyword = "el";
                 url = "https://app.element.io";
               }
-              {
-                name = "Nhentai";
-                keyword = "nh";
-                url = "https://nhentai.net";
-              }
             ];
           }
           {
@@ -273,11 +268,6 @@ in {
               updateInterval = 24 * 60 * 60 * 1000;
               urls = [{template = "https://www.youtube.com/results?search_query={searchTerms}";}];
               definedAliases = ["@yt"];
-            };
-            "Nhentai" = {
-              updateInterval = 24 * 60 * 60 * 1000;
-              urls = [{template = "https://www.nhentai.net/search?q={searchTerms}";}];
-              definedAliases = ["@nh"];
             };
             "Google".metaData.alias = "g";
           };
