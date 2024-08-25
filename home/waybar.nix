@@ -199,7 +199,7 @@ in {
         #   };
         # };
         "custom/pushEverything" = {
-          format = "󰊢";
+          format = "󰜛";
           on-click = "cd ~/thorne && git add . && git commit -m 'test' && git push && cd ~/assets && git add . && git commit -m 'test' && git push";
         };
         "privacy" = {
@@ -242,7 +242,7 @@ in {
         };
         "image#cover" = {
           on-click = "pkill sptlrx || footclient -T quick -o 'main.font=${config.stylix.fonts.monospace.name}:size=30' sptlrx";
-          # on-click-right = "rm -rf /tmp/cover.jpg";
+          on-click-middle = "rm -rf /tmp/cover.jpg";
           on-click-right = scripts.glavaShow;
           path = "/tmp/cover.jpg";
           size = 31;

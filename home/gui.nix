@@ -88,7 +88,6 @@ in {
         "[fullscreen] f" = "toggle_fullscreen";
       };
     };
-
     foot = {
       enable = true;
       settings = {

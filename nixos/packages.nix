@@ -9,6 +9,8 @@
     config.nur.repos.mic92.hello-nur
 
     # Cli
+    ## testing
+    warp-terminal
     ## internet
     aria2
     curl

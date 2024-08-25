@@ -15,8 +15,8 @@
       };
       sansSerif = serif;
       monospace = {
-        package = pkgs.miracode;
-        name = "Miracode";
+        package = pkgs.my-fonts;
+        name = "Maple Mono";
       };
       emoji = {
         package = pkgs.noto-fonts-emoji;
