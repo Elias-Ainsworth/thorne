@@ -26,6 +26,7 @@ in {
   ];
 
   # NOTE: virt-manager fix
+
   dconf = {
     enable = true;
     settings = {
@@ -40,6 +41,8 @@ in {
     username = myUserName;
 
     stateVersion = "24.11";
+
+    file = {};
 
     packages = [
       scripts._4khd

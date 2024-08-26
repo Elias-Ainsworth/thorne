@@ -88,6 +88,24 @@ in {
         "[fullscreen] f" = "toggle_fullscreen";
       };
     };
+    kitty = {
+      enable = true;
+      settings = {
+        disable_ligatures = "never";
+        cursor_shape = "block";
+        cursor_blink_interval = "0.5";
+        cursor_stop_blinking_after = "15.0";
+        scrollback-lines = 10000;
+        click_interval = "0.5";
+        select_by_word_characters = ":@-./_~?&=%+#";
+        remember_window_size = false;
+        visual_bell_duration = "0.0";
+        url_style = "double";
+        open_url_with = "default";
+        confirm_os_window_close = 0;
+        enable_audio_bell = false;
+      };
+    };
     foot = {
       enable = true;
       settings = {
