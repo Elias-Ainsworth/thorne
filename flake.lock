@@ -872,11 +872,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1724541085,
-        "narHash": "sha256-RI9dyXtXfOKwtgyTocHO1JSx86H2haodXv3GoQktiU4=",
+        "lastModified": 1724650068,
+        "narHash": "sha256-SHl/1n2h2SGvNjcv3cqrj5watO6R0AMhnmzDScSTkj0=",
         "owner": "Elias-Ainsworth",
         "repo": "assets",
-        "rev": "0e1bd48e4dbc0b9c2207189ec21de039a887ce6a",
+        "rev": "0e4f4038b29fc441bf0328647f9b67c6bf87e457",
         "type": "github"
       },
       "original": {
@@ -1196,11 +1196,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1724528976,
-        "narHash": "sha256-5W13nD/5ySIsxSvDqXHlj4bg2F3tNcYGKCGudWzpNzw=",
+        "lastModified": 1724598705,
+        "narHash": "sha256-/oaK6niVP0wezfXoJcKAP2Ho887hKza7y1n8HazCkKA=",
         "owner": "nix-community",
         "repo": "nixvim",
-        "rev": "8234ee85eaa2c8b7f2c74f5b4cdf02c4965b07fc",
+        "rev": "bb8ecad13c229e1c89301055c8e54d8d0e33e839",
         "type": "github"
       },
       "original": {
@@ -1211,11 +1211,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1724615138,
-        "narHash": "sha256-2GXKQA8XUiWBqQVNTDzgt314Sf0hK+felNgVMS3N4pQ=",
+        "lastModified": 1724645047,
+        "narHash": "sha256-7pgj4EaBwAa5QLGK5Z83YK36S5kfNs5NitBW32KenWY=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "3c82a4d6b1e85b2909da8cc926821f8b9503c810",
+        "rev": "c3ca89a6683a50bb8a2d4f41a02b7085685edf74",
         "type": "github"
       },
       "original": {

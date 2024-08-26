@@ -119,5 +119,6 @@
         (import ./nixos/config.nix)
       ];
     };
+    templates = import ./templates;
   };
 }
