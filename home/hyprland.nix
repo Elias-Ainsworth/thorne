@@ -255,7 +255,7 @@ in {
 
           "$mod1, 9, togglespecialworkspace, music"
           "$mod2, 9, movetoworkspacesilent, special:music"
-          "$mod2, return, togglespecialworkspace, music"
+          "$mod3, return, togglespecialworkspace, music"
         ]
         ++ (builtins.concatLists (builtins.genList (x: let
             ws = let c = (x + 1) / 10; in builtins.toString (x + 1 - (c * 10));
