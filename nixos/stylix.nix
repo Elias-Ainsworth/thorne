@@ -44,6 +44,7 @@
     fontconfig.defaultFonts = rec {
       sansSerif = ["Kollektif" "Mamelon"];
       serif = sansSerif;
+      monospace = ["Maple Mono" "MPlus 1 Code"];
       emoji = ["Noto Color Emoji"];
     };
     packages = with pkgs; [

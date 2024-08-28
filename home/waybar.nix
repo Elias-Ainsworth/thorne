@@ -71,7 +71,7 @@ in {
             ".+" = "";
           };
         };
-        "tray" = {spacing = 10;};
+        "tray" = {spacing = 20;};
         "clock#time" = {
           format = "{:%H:%M}";
           tooltip-format = "{tz_list}";
@@ -93,14 +93,24 @@ in {
           on-scroll-down = "pulsemixer --change-volume -5";
         };
         "network" = {
-          interface = "wlp3s0";
           format-wifi = "{essid}";
           format-ethernet = "{bandwidthUpBytes} {bandwidthDownBytes}";
-          tooltip-format-wifi = "{essid} ({signalStrength}%)";
+          tooltip-format = "{essid} ({signalStrength}%)";
+          format-alt = "{ifname}: {ipaddr}/{cidr}";
           min-width = 20;
           fixed-width = 20;
           interval = 1;
         };
+        # "network#ethernet" = {
+        #   # interface = "enp0s25";
+        #   format = "";
+        #   format-ethernet = "{bandwidthUpBytes} {bandwidthDownBytes}";
+        #   format-disconnected = "";
+        #   min-width = 20;
+        #   fixed-width = 20;
+        #   interval = 1;
+        # };
+
         # "battery" = {
         #   # bat = "BAT0";
         #   states = {
@@ -121,12 +131,15 @@ in {
           };
           size = 19;
           format = "{icon}";
-          format-alt = "bat: {capacity}%";
+          # format-alt = "bat: {capacity}% (&amp;&amp;) time: {time}";
+          format-alt = "󱐋  {capacity}%  ({time})";
           format-icons = ["󰂃" "󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹"];
           format-charging = "󰂄";
+          format-time = "{H}:{m}";
           # format-charging = "";
           # format-icons = ["" "" "" "" ""];
-          tooltip = "{icon} ({capacity}%)";
+          tooltip = false;
+          # tooltip-format = "|| bat: {capacity}% || time: {time} ||";
         };
         "group/music" = {
           orientation = "vertical";
@@ -264,6 +277,7 @@ in {
     style =
       ''
         * {
+          font-family: "${config.stylix.fonts.sansSerif.name}";
           border: none;
           border-radius: 0;
           min-height: 0;
@@ -275,20 +289,8 @@ in {
         window#waybar.hidden {
           opacity: 0.1;
         }
-        #clock,
-        #mpris,
-        #battery {
-          padding: 2px 5px;
-          margin-left: 5px;
-          margin-right: 5px;
-        }
-        #network,
-        #tray,
-        #pulseaudio,
-        #pulseaudio.muted,
-        #taskbar,
         #workspaces,
-        #image.toggle,
+        #taskbar,
         #custom-pushEverything,
         #privacy,
         #gamemode,
@@ -298,6 +300,21 @@ in {
         #custom-shot,
         #custom-osk,
         #custom-close,
+        #image.toggle,
+        #mpris,
+        #battery,
+        #network,
+        #pulseaudio,
+        #pulseaudio.muted,
+        #clock,
+        #tray {
+          padding: 2px 5px;
+          border-radius: 5px;
+          margin-left: 5px;
+          margin-right: 5px;
+          margin-top: 2px;
+          margin-bottom: 2px;
+        }
         #network.disconnected {
           color: @base05;
           padding: 2px 5px;
