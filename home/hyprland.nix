@@ -104,6 +104,7 @@ in {
         repeat_rate = 60;
         repeat_delay = 250;
         force_no_accel = 1;
+        follow_mouse = 2;
       };
       dwindle = {
         force_split = 2;

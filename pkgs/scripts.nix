@@ -160,7 +160,7 @@ in {
   # '';
   epubOpen = writeShellScript "epubOpen" ''
     export EPUB=true
-    epubs=$(fd -e=epub . ~/bks/)
+    epubs=$(fd -e=epub . ~/mda/bks/)
     IFS="
     "
     open() {
@@ -168,9 +168,9 @@ in {
       [ -n "$file" ] && zathura "$file.epub"
     }
     for i in $epubs; do
-      image="$(dirname "$i")/cover.jpg"
+      image="$(dirname "$i")/cover.png"
       echo -en "''${i%.epub}\0icon\x1f$image\n"
-    done | rofi -i -dmenu -display-column-separator "/" -display-columns 7 -theme preview -p "" | open
+    done | rofi -i -i -dmenu -display-column-separator "/" -display-columns 8 -theme preview -p "" | open
   '';
   glavaShow = writeShellScript "glavaShow" ''
     id=$(pulsemixer -l | grep glava | sed -nE 's/.*ID: (.+?), Name.*/\1/p')
