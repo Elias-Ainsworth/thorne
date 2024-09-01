@@ -21,6 +21,7 @@ in {
     ./rofi.nix
     ./xdg.nix
     ./firefox.nix
+    ./starship.nix
     ./spotify-player.nix
     ./hyprland.nix
   ];

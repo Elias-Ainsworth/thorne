@@ -16,6 +16,7 @@
     yt-dlp
     rsync
     ani-cli
+    mangal
 
     ## unix utils
     dust
@@ -39,6 +40,8 @@
     translate-shell
     pulsemixer
     # nvtopPackages.nvidia
+    todo
+    pomodoro
     lutgen
     gammastep
     hyprpicker
