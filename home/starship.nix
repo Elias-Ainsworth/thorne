@@ -13,9 +13,12 @@
       };
 
       character = {
-        success_symbol = "[λ](${config.lib.stylix.colors.withHashtag.base0A})";
-        error_symbol = "[λ](#FF5C57)";
-        vimcmd_symbol = "[Λ](${config.lib.stylix.colors.withHashtag.base0A})";
+        # success_symbol = "[λ](${config.lib.stylix.colors.withHashtag.base0A})";
+        # error_symbol = "[λ](#FF5C57)";
+        # vimcmd_symbol = "[Λ](${config.lib.stylix.colors.withHashtag.base0A})";
+        success_symbol = "[ニ](${config.lib.stylix.colors.withHashtag.base0A})";
+        error_symbol = "[ニ](#FF5C57)";
+        vimcmd_symbol = "[ヰ](${config.lib.stylix.colors.withHashtag.base0A})";
       };
 
       git_branch = {
@@ -45,11 +48,12 @@
       direnv = {
         disabled = false;
         format = "[$symbol$loaded$allowed]($style) ";
-        symbol = "ε";
+        # symbol = "ε";
+        symbol = "エ";
         style = "${config.lib.stylix.colors.withHashtag.base0E}";
         detect_files = [".envrc"];
         allowed_msg = "​";
-        denied_msg = "not-allowed";
+        denied_msg = "きょひ";
         loaded_msg = "​";
         unloaded_msg = "​";
       };
