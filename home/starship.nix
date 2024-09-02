@@ -4,7 +4,7 @@
     settings = {
       add_newline = false;
       right_format = "$cmd_duration";
-      format = "$username$hostname$directory$git_branch$git_state$git_status$python$character";
+      format = "$username$hostname$directory$git_branch$git_state$git_status$direnv$character";
 
       directory = {
         style = "${config.lib.stylix.colors.withHashtag.base0B}";
@@ -40,11 +40,18 @@
       };
       cmd_duration = {
         format = "[$duration]($style) ";
-        style = "yellow";
+        style = "${config.lib.stylix.colors.withHashtag.base0C}";
       };
-      python = {
-        format = "[$virtualenv]($style) ";
-        style = "bright-black";
+      direnv = {
+        disabled = false;
+        format = "[$symbol$loaded$allowed]($style) ";
+        symbol = "ε";
+        style = "${config.lib.stylix.colors.withHashtag.base0E}";
+        detect_files = [".envrc"];
+        allowed_msg = "​";
+        denied_msg = "not-allowed";
+        loaded_msg = "​";
+        unloaded_msg = "​";
       };
     };
   };
