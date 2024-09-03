@@ -217,8 +217,8 @@ in {
           # "$mod1, r, exec, pkill qalculate-qt || qalculate-qt"
           "$mod1, z, exec, pkill pulsemixer || footclient -T quick pulsemixer"
 
-          "$mod1, return, exec, kitty"
-          "$mod2, return, exec, footclient"
+          "$mod1, return, exec, kitty -1 fish"
+          "$mod2, return, exec, footclient fish"
           "$mod1, comma, exec, pkill btop || footclient -T quick btop"
           "$mod1, slash, exec, pkill sptlrx || footclient -T quick -o 'main.font=${config.stylix.fonts.monospace.name}:size=30' sptlrx"
           "$mod1, period, exec, ${lib.getExe pkgs.hdrop} -b -f -g 230 -w 85 -h 65 -c foot 'footclient -a foot'"

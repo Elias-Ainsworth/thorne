@@ -25,6 +25,8 @@
     file
     sd
     ripgrep
+    procs
+    rm-improved
 
     ## helpful
     gcc

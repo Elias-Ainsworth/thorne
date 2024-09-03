@@ -26,13 +26,22 @@
     direnv = {
       enable = true;
       enableZshIntegration = true;
+      # enableFishIntegration = true;
       silent = true;
       nix-direnv.enable = true;
     };
 
+    gh.enable = true;
+
+    lazygit.enable = true;
+
+    gitui.enable = true;
+
     zoxide = {
       enable = true;
       enableZshIntegration = true;
+      enableFishIntegration = true;
+      options = ["--cmd cd"];
     };
 
     bat.enable = true;
@@ -40,6 +49,7 @@
     eza = {
       enable = true;
       enableZshIntegration = true;
+      enableFishIntegration = true;
       git = true;
       icons = true;
       extraOptions = ["--hyperlink"];
@@ -74,11 +84,13 @@
     fzf = {
       enable = true;
       enableZshIntegration = true;
+      enableFishIntegration = false;
     };
 
     yazi = {
       enable = true;
       enableZshIntegration = true;
+      enableFishIntegration = true;
       shellWrapperName = "ya";
       keymap = {
         manager.prepend_keymap = [

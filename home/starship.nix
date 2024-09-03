@@ -4,7 +4,7 @@
     settings = {
       add_newline = false;
       right_format = "$cmd_duration";
-      format = "$username$hostname$directory$git_branch$git_state$git_status$direnv$character";
+      format = "$username$hostname$directory$git_branch$git_state$git_status$nix_shell$direnv$character";
 
       directory = {
         style = "${config.lib.stylix.colors.withHashtag.base0B}";
@@ -45,16 +45,22 @@
         format = "[$duration]($style) ";
         style = "${config.lib.stylix.colors.withHashtag.base0C}";
       };
+      nix_shell = {
+        disabled = false;
+        pure_msg = "[きよい](${config.lib.stylix.colors.withHashtag.base04})";
+        impure_msg = "[けがれ](${config.lib.stylix.colors.withHashtag.base0F})";
+        format = "[󱄅 $state](${config.lib.stylix.colors.withHashtag.base09}) ";
+      };
       direnv = {
         disabled = false;
-        format = "[$symbol$loaded$allowed]($style) ";
+        format = "[$symbol$loaded$allowed]($style)";
         # symbol = "ε";
-        symbol = "[ディレンブ]";
+        symbol = "ディレンヴ ";
         style = "${config.lib.stylix.colors.withHashtag.base0E}";
         detect_files = [".envrc"];
         allowed_msg = "​";
-        not_allowed_msg = "しようきんし";
-        denied_msg = "きょひ";
+        not_allowed_msg = "しようきんし ";
+        denied_msg = "きょひ ";
         loaded_msg = "​";
         unloaded_msg = "​";
       };

@@ -15,6 +15,7 @@ in {
     ./gui.nix
     ./mpv.nix
     ./zsh.nix
+    ./fish.nix
     ./waybar.nix
     ./nvim.nix
     ./git.nix

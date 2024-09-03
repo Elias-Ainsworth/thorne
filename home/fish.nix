@@ -1,0 +1,311 @@
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}: let
+  cursor = expansion: {
+    setCursor = true;
+    inherit expansion;
+  };
+in {
+  programs.fish = {
+    enable = true;
+    interactiveShellInit = ''
+      set -U fish_greeting
+
+      set -U fish_color_command green
+      set -U fish_color_param white
+      set -U fish_color_end blue
+
+      set -U fish_cursor_insert line
+      set -U fish_cursor_replace_once underscore
+      set -U fish_cursor_replace underscore
+      set -U fish_cursor_external line
+    '';
+    shellAbbrs = {
+      v = "nvim";
+      nv = "neovide --fork";
+      copy = "wl-copy";
+      mp = "mkdir -p";
+      page = "$PAGER";
+      open = "xdg-open";
+      size = "du -sh";
+      "-" = "cd -";
+      cht = "cht.sh";
+
+      realwhich = cursor "realpath (which %)";
+
+      sc = "systemctl";
+      jc = "journalctl";
+      scu = "systemctl --user";
+      jcu = "journalctl --user";
+
+      # nix
+      n = "nix";
+      test = "nh os test";
+      switch = "nh os switch";
+      clean = "nh clean all";
+      shell = "nix shell --run fish";
+      shellp = "nix shell --run fish -p";
+      dev = "nix develop --command fish";
+      run = "nix run";
+      build = "nix build";
+      flake = "nix flake";
+      repl = "nix repl --expr 'import <nixpkgs> {}'";
+      bloat = "nix path-info -Sh /run/current-system";
+
+      # git
+      g = "git";
+      lg = "lazygit";
+      gc = "git commit";
+      gp = "git push";
+      gl = "git pull";
+      gst = "git status";
+      grhh = "git reset --hard";
+      gb = "git branch";
+      gm = "git merge";
+      gfa = "git fetch --all";
+      gpf = "git push --force";
+      gco = "git checkout";
+      gd = "git diff";
+      gs = "git switch";
+      gsc = "git switch --create";
+      ga = "git add";
+      gf = "git fetch";
+    };
+    shellAliases = {
+      cat = "bat -p -P";
+      setwall = "swww img -f Mitchell -t any --transition-fps 75 --transition-duration 2";
+      free = "free -h";
+      tree = "eza -T";
+    };
+    functions = {
+      fish_user_key_bindings = lib.throwIf (lib.versionOlder "3.8" pkgs.fish.version) "Fish 3.8 has been released, change to using `accept-autosuggestion and execute`, then remove this error" ''
+        fish_default_key_bindings -M insert
+        fish_vi_key_bindings --no-erase
+        set -g fish_key_bindings fish_vi_key_bindings
+
+        bind -M insert \cu kill-whole-line
+
+        bind -M insert \b backward-kill-word
+        bind -M insert \e\[3\;5~ kill-word
+
+        bind -M insert -k nul accept-autosuggestion execute
+
+        bind -M insert \e\[B history-search-forward
+        bind -M insert \e\[A history-search-backward
+        bind -M insert \n history-prefix-search-forward
+        bind -M insert \ck history-prefix-search-backward
+        bind -M insert \ej history-token-search-forward
+        bind -M insert \ek history-token-search-backward
+
+        bind -M insert \t 'if commandline -P; commandline -f complete; else; commandline -f complete-and-search; end'
+        bind -M insert \e\[Z complete-and-search
+      '';
+      sudo = {
+        description = "sudo wrapper that works with aliases";
+        wraps = "sudo";
+        body = ''
+          for i in (seq 1 (count $argv))
+            if command -q -- $argv[$i]
+              command sudo $argv
+              return
+            else if functions -q -- $argv[$i]
+              if [ $i != 1 ]
+                set -f sudo_args $argv[..(math $i - 1)]
+              end
+              command sudo $sudo_args -E fish -C "source $(functions --no-details (functions | string split ', ') | psub)" -c '$argv' $argv[$i..]
+              return
+            end
+          end
+
+          command sudo $argv
+        '';
+      };
+
+      con = {
+        description = "temporarily subtitute a file with a writable copy of it";
+        body = ''
+          for file in $argv
+            if [ -f $file.pure ]
+              echo "$file is already contaminated"
+            else if not [ -f $file ]
+              echo "$file is not a file or does not exist"
+            else
+              echo "Contaminating $file"
+              mv $file $file.pure
+              install -m 644 $file.pure $file
+            end
+          end
+        '';
+      };
+
+      dec = {
+        description = "restore the original file moved by con";
+        body = ''
+          for file in $argv
+            if [ -f $file.pure ]
+              echo "Decontaminating $file"
+              mv $file.pure $file
+            else
+              echo "$file is not contaminated"
+            end
+          end
+        '';
+      };
+
+      # Relies on `con` and `dec`
+      sv = {
+        description = "edit files that aren't writable";
+        body = ''
+          for file in $argv
+            [ -f $file -a ! -w $file ] && set -fa cond $file
+          end
+
+          con $cond
+          $EDITOR -- $argv
+          dec $cond
+        '';
+      };
+
+      xv = {
+        description = "make file executable and edit it";
+        body = ''
+          for file in $argv
+            if [ -f $file ]
+              chmod +x $file
+            else
+              install /dev/null $file
+            end
+          end
+
+          $EDITOR -- $argv
+        '';
+      };
+
+      yazi = {
+        description = "go to yazi directory";
+        wraps = "yazi";
+        body = ''
+          set -f tmp (mktemp)
+          command yazi $argv --cwd-file=$tmp
+          set -f dir (cat $tmp)
+          [ -n $dir -a $dir != $PWD ] && cd $dir
+        '';
+      };
+
+      ".." = {
+        description = "go up n directories";
+        body = ''
+          if set -q argv[1]
+            cd (string repeat -Nn $argv[1] ../)
+          else
+            cd ..
+          end
+        '';
+      };
+
+      mcd = {
+        description = "create a directory and cd into it";
+        argumentNames = "directory";
+        body = ''
+          mkdir -p $directory
+          cd $directory
+        '';
+      };
+
+      copypath = {
+        description = "copy the path of a file";
+        body = ''
+          if set -q argv[1]
+            set path (realpath -s $argv[1])
+            echo "Copying $path"
+            echo -n $path | wl-copy
+          else
+            echo "Copying $PWD"
+            pwd | wl-copy
+          end
+        '';
+      };
+
+      copyfile = {
+        description = "copy the contents of a file";
+        argumentNames = "file";
+        body = ''
+          if [ -f $file -a -r $file ]
+            cat $file | wl-copy
+          else
+            echo "$file doesn't exist or cannot be read"
+          end
+        '';
+      };
+
+      notify = {
+        description = "show notification after executing a command";
+        body = ''
+          $argv
+          notify-send -i dialog-information -t 0 Shell "$argv[1] has finished executing"
+        '';
+      };
+
+      pkgpath = {
+        description = "ensures the package is installed and prints its store path";
+        argumentNames = "package";
+        body = ''
+          nix shell $package --command nix eval --raw $package
+        '';
+      };
+
+      # Relies on pkgpath
+      pkgtree = {
+        description = "prints the tree of a package, extra arguments are appended to eza";
+        body = "eza --tree --icons --group-directories-first $argv[2..] (pkgpath $argv[1])";
+      };
+
+      rpwd = {
+        description = "rename current directory";
+        argumentNames = "to";
+        body = ''
+          set -f dir (basename $PWD)
+          cd ..
+          mv $dir $to
+          cd $to
+        '';
+      };
+
+      listxwl = {
+        description = "list XWayland windows in Hyprland";
+        body = "hyprctl -j clients | jaq -r '.[] | select( [ .xwayland == true ] | any ) | .title'";
+      };
+
+      mkshell = {
+        description = "nix shell with inputsFrom";
+        body = ''
+          set -f list direct
+
+          for arg in $argv
+            switch $arg
+            case -p --packages
+              set -f list direct
+            case -i --inputs-from
+              set -f list inputs_from
+            case '*'
+              set -fa $list $arg
+            end
+          end
+
+          nix shell --impure --expr "
+            let
+              pkgs = import <nixpkgs> {};
+            in pkgs.mkShellNoCC with pkgs; {
+              packages = [$direct];
+              inputsFrom = [$inputs_from];
+            }
+          "
+        '';
+      };
+    };
+  };
+  xdg.configFile."fish/config.fish".onChange = "rm ${config.xdg.configHome}/fish/fish_variables";
+}
