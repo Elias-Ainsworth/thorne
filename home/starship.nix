@@ -49,10 +49,11 @@
         disabled = false;
         format = "[$symbol$loaded$allowed]($style) ";
         # symbol = "ε";
-        symbol = "エ";
+        symbol = "[ディレンブ]";
         style = "${config.lib.stylix.colors.withHashtag.base0E}";
         detect_files = [".envrc"];
         allowed_msg = "​";
+        not_allowed_msg = "しようきんし";
         denied_msg = "きょひ";
         loaded_msg = "​";
         unloaded_msg = "​";
