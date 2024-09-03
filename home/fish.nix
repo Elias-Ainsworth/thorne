@@ -46,8 +46,8 @@ in {
       test = "nh os test";
       switch = "nh os switch";
       clean = "nh clean all";
-      shell = "nix shell --run fish";
-      shellp = "nix shell --run fish -p";
+      shell = "nix-shell --run fish";
+      shellp = "nix-shell --run fish -p";
       dev = "nix develop --command fish";
       run = "nix run";
       build = "nix build";
