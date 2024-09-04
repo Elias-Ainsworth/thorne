@@ -143,7 +143,7 @@ in {
         todo-comments.enable = true;
         barbecue = {
           enable = true;
-          leadCustomSection = ''
+          lead_custom_section = ''
             function()
               return {{" ","WinBar"}}
             end
