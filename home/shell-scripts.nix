@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (pkgs) writeShellApplication writeShellApplicationPlus fd sd;
+  inherit (pkgs) writeShellApplication writeShellApplicationPlus writeShellApplicationCompletions fd sd;
 in {
   home.packages = [
     (
