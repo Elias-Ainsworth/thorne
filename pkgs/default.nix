@@ -3,6 +3,7 @@ self: super: {
   yazi-plugins = self.callPackage ./yazi-plugins.nix {};
   fcitx5-fluent = self.callPackage ./fcitx5-fluent.nix {};
   ani-cli = self.callPackage ./ani-cli.nix {};
+  writeShellApplicationPlus = self.callPackage ./write-shell-application-completions.nix {};
 
   #NOTE: fuck glava; version below has --pipe and **actually** builds (fuck meson too)
   glava = super.glava.overrideAttrs {

@@ -29,12 +29,12 @@
       git_status = {
         format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218)($ahead_behind$stashed)]($style) ";
         style = "${config.lib.stylix.colors.withHashtag.base0C}";
-        conflicted = "​";
-        untracked = "​";
-        modified = "​";
-        staged = "​";
-        renamed = "​";
-        deleted = "​";
+        conflicted = "";
+        untracked = "";
+        modified = "";
+        staged = "";
+        renamed = "";
+        deleted = "";
         stashed = "≡";
       };
       git_state = {
@@ -58,11 +58,11 @@
         symbol = "ディレンヴ ";
         style = "${config.lib.stylix.colors.withHashtag.base0E}";
         detect_files = [".envrc"];
-        allowed_msg = "​";
+        allowed_msg = "";
         not_allowed_msg = "しようきんし ";
         denied_msg = "きょひ ";
-        loaded_msg = "​";
-        unloaded_msg = "​";
+        loaded_msg = "";
+        unloaded_msg = "";
       };
     };
   };

@@ -94,6 +94,7 @@
       nixpkgs.overlays = with inputs; [
         my-assets.overlays.default
         # hyprland.overlays.default
+        (_: prev: {writeShellApplicationPlus = prev.callPackage ./pkgs/write-shell-application-completions.nix {};})
         (import ./pkgs)
       ];
     };

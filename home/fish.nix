@@ -305,7 +305,58 @@ in {
           "
         '';
       };
+      # template-init = {
+      #   description = "initializes a repo using one of the templates found in thorne/templates";
+      #   body = ''
+      #     set -l templates_dir ~/thorne/templates/
+      #     set -l template_name $argv[1]
+      #     set -l available_templates (fd --base-directory $templates_dir --type d | sed 's|/||g')
+      #
+      #     if test -z "$template_name"
+      #       echo "Error: no template specified" >&2
+      #       echo ""
+      #       echo "Usage: template-init <template>" >&2
+      #       echo ""
+      #       echo "Available Templates:" >&2
+      #       for t in $available_templates
+      #         echo "  $t"
+      #       end
+      #       echo ""
+      #       echo "For more information, try '--help'." >&2
+      #       return 1
+      #     end
+      #
+      #     if not contains $template_name $available_templates
+      #       echo "error: template '$template_name' not found" >&2
+      #       echo ""
+      #       echo "Available Templates:" >&2
+      #       for t in $available_templates
+      #         echo "  $t"
+      #       end
+      #       echo ""
+      #       echo "For more information, try '--help'." >&2
+      #       return 1
+      #     end
+      #
+      #     nix flake init --template github:elias-ainsworth/thorne#$template_name
+      #   '';
+      # };
+      # __template_init_completions = {
+      #   description = "completions for template-init function";
+      #   body = ''
+      #     set -l templates_dir ~/thorne/templates/
+      #     set -l available_templates (fd --base-directory $templates_dir --type d | sed 's|/||g')
+      #     for t in $available_templates
+      #             echo $t
+      #     end
+      #     complete -c template-init -a "(__fish_template_init_complete)"
+      #   '';
+      # };
     };
   };
-  xdg.configFile."fish/config.fish".onChange = "rm ${config.xdg.configHome}/fish/fish_variables";
+  xdg = {
+    configFile = {
+      "fish/config.fish".onChange = "rm ${config.xdg.configHome}/fish/fish_variables";
+    };
+  };
 }

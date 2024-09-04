@@ -23,6 +23,7 @@ in {
     ./xdg.nix
     ./firefox.nix
     ./starship.nix
+    ./shell-scripts.nix
     ./spotify-player.nix
     ./hyprland.nix
   ];

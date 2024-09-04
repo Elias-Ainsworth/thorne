@@ -145,6 +145,11 @@ in {
     packages = with pkgs; [terminus_font];
     useXkbConfig = true;
   };
+  environment.pathsToLink = ["/share/fish"];
+  nixpkgs.overlays = with inputs; [
+    # hyprland.overlays.default
+    (_: prev: {writeShellApplicationPlus = prev.callPackage ../pkgs/write-shell-application-completions.nix {};})
+  ];
 
   programs = {
     zsh.enable = true;
