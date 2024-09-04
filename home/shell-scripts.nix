@@ -3,11 +3,11 @@
   lib,
   ...
 }: let
-  inherit (pkgs) writeShellApplication writeShellScriptPlus fd sd;
+  inherit (pkgs) writeShellApplication writeShellApplicationPlus fd sd;
 in {
   home.packages = [
     (
-      writeShellApplication {
+      writeShellApplicationPlus {
         name = "template-init";
         runtimeInputs = [fd sd];
         text = ''
