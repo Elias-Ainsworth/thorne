@@ -25,6 +25,7 @@ in {
     ./starship.nix
     ./shell-scripts.nix
     ./spotify-player.nix
+    ./ncmpcpp.nix
     ./hyprland.nix
   ];
 

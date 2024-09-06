@@ -32,6 +32,7 @@
     gcc
     ffmpeg
     imagemagick
+    rmpc
     sqlite
     grimblast
     cliphist

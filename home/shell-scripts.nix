@@ -11,10 +11,10 @@ in {
         name = "template-init";
         runtimeInputs = [fd sd];
         text = ''
-          templates_dir=~/thorne/templates
+          templates_dir=$HOME/thorne/templates
           template_name=$1
           template_url="github:elias-ainsworth/thorne#$template_name"
-          available_templates=$(fd --base-directory $templates_dir --type d | sd / "")
+          available_templates=$(fd --base-directory "$templates_dir" --type d | sd / "")
 
           if [ -z "$template_name" ]; then
             echo "error: no template specified" >&2

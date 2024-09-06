@@ -56,10 +56,10 @@
       download = "${config.home.homeDirectory}/dl";
       documents = "${config.home.homeDirectory}/dl/dox";
       desktop = "${config.home.homeDirectory}/dl/desk";
-      videos = "${config.home.homeDirectory}/dl/vid";
-      pictures = "${config.home.homeDirectory}/pix";
-      music = "${config.home.homeDirectory}/dl/music";
-      templates = "${config.home.homeDirectory}/.local/share/templates";
+      videos = "${config.home.homeDirectory}/mda/vid";
+      pictures = "${config.home.homeDirectory}/mda";
+      music = "${config.home.homeDirectory}/mda/music";
+      templates = "${config.home.homeDirectory}/thorne/templates";
       publicShare = "${config.home.homeDirectory}/.local/share/public";
     };
     mime.enable = true;
