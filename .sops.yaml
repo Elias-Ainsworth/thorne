@@ -1,0 +1,7 @@
+keys:
+  - &thorne age1rwsfsq7jwqfxjd8wnervcf92h79slhsg397j7tm9clr8hcf52uyqgde7al
+creation_rules:
+  - path_regex: secrets/secrets.yaml$
+    key_groups:
+      - age:
+        - *thorne
