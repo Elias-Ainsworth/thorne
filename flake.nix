@@ -9,6 +9,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nur.url = "github:nix-community/NUR";
     nix-colors.url = "github:misterio77/nix-colors";
     stylix = {
@@ -118,6 +122,8 @@
         stylix.nixosModules.stylix
         nur.nixosModules.nur
         home-manager.nixosModules.home-manager
+        disko.nixosModules.default
+        (import .nixos/disko.nix {device = "dev/sda";})
         sops-nix.nixosModules.sops
         (import ./nixos/config.nix)
       ];
