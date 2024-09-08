@@ -123,7 +123,7 @@
         nur.nixosModules.nur
         home-manager.nixosModules.home-manager
         disko.nixosModules.default
-        (import .nixos/disko.nix {device = "dev/sda";})
+        # (import .nixos/disko.nix {device = "dev/sda";})
         sops-nix.nixosModules.sops
         (import ./nixos/config.nix)
       ];
