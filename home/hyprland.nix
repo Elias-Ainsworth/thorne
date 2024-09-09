@@ -31,7 +31,7 @@ in {
         # "VDPAU_DRIVER,nvidia"
         "WLR_NO_HARDWARE_CURSORS,1"
         "NIXOS_OZONE_WL,1"
-        "GRIMBLAST_EDITOR,satty --filename"
+        # "GRIMBLAST_EDITOR,satty --filename"
         "ELECTRON_OZONE_PLATFORM_HINT,auto"
         "MOZ_ENABLE_WAYLAND,1"
         # "NVD_BACKEND,direct"
@@ -172,7 +172,6 @@ in {
       ];
       bindr = ["SUPER, SUPER_L, exec, pkill rofi || rofi -show drun"];
       bindel = [
-        ",Print, exec,grimblast --notify copy area"
         ",XF86AudioRaiseVolume, exec, pulsemixer --change-volume +5"
         ",XF86AudioLowerVolume, exec, pulsemixer --change-volume -5"
         ",XF86AudioMute, exec, pulsemixer --toggle-mute"
@@ -203,8 +202,11 @@ in {
       ];
       bind =
         [
-          "$mod1, Print, exec, grimblast --notify copy screen"
-          "$mod4, Print, exec, grimblast --notify edit area"
+          # "$mod1, Print, exec, grimblast --notify copy screen"
+          # "$mod4, Print, exec, grimblast --notify edit area"
+
+          ", Print, exec, focal --rofi"
+          "$mod4, Print, exec, focal --rofi --video"
 
           "$mod2, f, exec, firefox"
           "$mod2, v, exec, neovide"

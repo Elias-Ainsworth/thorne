@@ -1,4 +1,5 @@
 {
+  inputs,
   pkgs,
   config,
   ...
@@ -34,6 +35,7 @@
     imagemagick
     rmpc
     sqlite
+    inputs.focal.packages.${pkgs.system}.default
     grimblast
     cliphist
     xdg-utils
@@ -72,6 +74,7 @@
     # librewolf
     qbittorrent
     nautilus
+    gnome-disk-utility
     qalculate-qt
     glava
     nsxiv

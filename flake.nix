@@ -40,7 +40,7 @@
     hyprland = {
       url = "git+https://github.com/hyprwm/Hyprland?submodules=1&rev=17ed4fc04cedbaad365bdebf6bfe0160c527f3fe";
       # url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-      # inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
@@ -49,6 +49,10 @@
     devenv.url = "github:cachix/devenv";
     alejandra = {
       url = "github:kamadorueda/alejandra/3.0.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    focal = {
+      url = "github:elias-ainsworth/focal";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     lobster.url = "github:justchokingaround/lobster";
