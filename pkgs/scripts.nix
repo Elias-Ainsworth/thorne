@@ -2,12 +2,18 @@
   pkgs,
   lib,
 }: let
-  inherit (pkgs) writeShellScriptBin writeShellScript grim slurp wtype tesseract5;
+  inherit (pkgs) writeShellScriptBin writeShellScript wtype;
   _ = lib.getExe;
+  zenity = _ pkgs.gnome.zenity;
 in {
+  focalPix = writeShellScript "focalCmd" ''
+    focal --rofi --slurp="-c#161616 -b#161616C0 -B#1616167F"
+  '';
+  focalVid = writeShellScript "focalCmd" ''
+    focal --rofi --slurp="-c#161616 -b#161616C0 -B#1616167F" --video
+  '';
   wlOcr = writeShellScript "wlOcr" ''
-    ${_ grim} -g "$(${_ slurp})" -t ppm - | ${_ tesseract5} -l eng+jpn+jpn_vert+kor+kor_vert+deu+rus - - | wl-copy
-    echo "$(wl-paste)"
+    focal --rofi --slurp="-c#161616 -b#161616C0 -B#1616167F" --ocr eng+jpn+jpn_vert --no-save --no-notify
     notify-send -- "$(wl-paste)"
   '';
   transLiner = writeShellScript "transLiner" ''
@@ -31,12 +37,6 @@ in {
         ;;
     esac
   '';
-  copyTwit = writeShellScript "copyTwit" ''
-    url=$(wl-paste | sed 's/x.com/twitter.com/g')
-    notify-send "Downloading..."
-    ! yt-dlp -f "best[ext=mp4]" --embed-thumbnail --force-overwrites "$url" --paths "/tmp" --output send.mp4 && notify-send "Not a valid URL !!" && exit 1
-    wl-copy -t text/uri-list "file:///tmp/send.mp4" && notify-send "Copied to clipboard"
-  '';
   rofiGuard = writeShellScript "rofiGuard" ''
     build_rofi() {
       gv="$(systemctl list-unit-files --type=service --all | sed -nE 's/^(wg-quick.+).service.*/\1/p')"
@@ -55,26 +55,27 @@ in {
       act_on_rofi "$(build_rofi "STATUS: <b>ON</b> <i>$ga</i>")" "$ga"
     fi
   '';
-  disSend = writeShellScript "disSend" ''
-    DISCORD_URL='https://discord.com/api/v10'
-    DISCORD_SERVER_ID=931186431215435807
-    DISCORD_TOKEN=$(cat /run/secrets/discord_token)
-    send() {
-      curl -s "$DISCORD_URL/channels/$chan_id/messages" -H "Authorization: $DISCORD_TOKEN" -H "Accept: application/json" -H "Content-Type: multipart/form-data" -X POST -F "$1"
+  rofiGpt = writeShellScript "rofiGpt" ''
+    main() {
+    	${zenity} --progress --text="Waiting for an answer" --pulsate &
+    	[ $? -eq 1 ] && exit 1
+    	PID=$!
+    	answer=$(tgpt -q -w -i "$input")
+    	echo "$answer" >/tmp/gpt-answer
+    	kill $PID
+    	input="$(${zenity} --width=50 --height=50 --text="$(printf "%s" "$answer" | sed "s/.\{200\}/&\n/g")" --title="rofi-gpt" --entry)"
     }
-    selchan() {
-      chans=$(curl -s "$DISCORD_URL/guilds/$DISCORD_SERVER_ID/channels" -H "Authorization: $DISCORD_TOKEN" | tr '{}' '\n' | sed -nE 's|.*"id":"([^"]*)".*type":0.*last_message_id.*"name":"([^"]*)".*|\1 \2|p' )
-      chan=$(echo "$chans" | cut -d' ' -f2 | rofi -dmenu -i -p "Select Channel" -filter 2>/dev/null)
-      chan_id=$(printf "%s" "$chans" | grep "$chan" | cut -d' ' -f1)
-    }
-    f=$(rofi -show filebrowser -filebrowser-command 'echo' -filebrowser-directory $HOME/. -selected-row 1 2>/dev/null)
-    test -d "$f" && f=$(nsxiv -top "$f")
-    [ -z "$f" ] && notify-send "Exiting!!!" && exit 1
-    selchan
-    IFS="
-    "
-    [ -n "$f" ] && for i in $f; do send "file=@$i"; done && notify-send "Uploaded $f to Discord in $chan" && exit 0
-    notify-send "Exiting!!!" && exit 1
+
+    input=$(rofi -dmenu -l 1 -p "  " 2>/dev/null)
+    [ -z "$input" ] && exit 1
+
+    while :; do
+    	if [ -n "$input" ]; then
+    		main "$input"
+    	else
+    		exit 0
+    	fi
+    done
   '';
   _4khd = writeShellScriptBin "4khd" ''
     player=debug
@@ -144,20 +145,6 @@ in {
         [ -e "$i" ] && echo "$i"
     done | uniq
   '';
-  # epubOpen = writeShellScript "epubOpen" ''
-  #   export EPUB=true
-  #   epubs=$(fd -e=epub . /bks)
-  #   IFS="
-  #   "
-  #   open() {
-  #     file=$(cat -)
-  #     [ -n "$file" ] && zathura "$file.epub"
-  #   }
-  #   for i in $epubs; do
-  #     image="$(dirname "$i")/cover.jpg"
-  #     echo -en "''${i%.epub}\0icon\x1f$image\n"
-  #   done | rofi -i -dmenu -display-column-separator "/" -display-columns 7 -theme preview -p "" | open
-  # '';
   epubOpen = writeShellScript "epubOpen" ''
     export EPUB=true
     epubs=$(fd -e=epub . $HOME/mda/bks/)

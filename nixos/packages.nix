@@ -19,7 +19,12 @@
     ani-cli
     mangal
 
+    ## bible
+    lukesmithxyz-bible-kjv
+    grb
+
     ## unix utils
+    ouch
     dust
     duf
     fd
@@ -47,6 +52,7 @@
     # nvtopPackages.nvidia
     todo
     pomodoro
+    tgpt
     lutgen
     gammastep
     hyprpicker
@@ -76,6 +82,7 @@
     nautilus
     gnome-disk-utility
     qalculate-qt
+    geogebra6
     glava
     nsxiv
     # dvd-zig

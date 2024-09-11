@@ -205,8 +205,11 @@ in {
           # "$mod1, Print, exec, grimblast --notify copy screen"
           # "$mod4, Print, exec, grimblast --notify edit area"
 
-          ", Print, exec, focal --rofi"
-          "$mod4, Print, exec, focal --rofi --video"
+          ", Print, exec, ${scripts.focalPix}"
+          "$mod4, Print, exec, ${scripts.focalVid}"
+
+          # "$mod2, p, exec, focal --rofi --slurp='-c#161616 -b#161616C0 -B#1616167F'"
+          # "$mod3, Print, exec, focal --rofi --video --slurp='-c#161616 -b#161616C0 -B#1616167F'"
 
           "$mod2, f, exec, firefox"
           "$mod2, v, exec, neovide"
@@ -225,13 +228,12 @@ in {
           "$mod1, slash, exec, pkill sptlrx || footclient -T quick -o 'main.font=${config.stylix.fonts.monospace.name}:size=30' sptlrx"
           "$mod1, period, exec, ${lib.getExe pkgs.hdrop} -b -f -g 230 -w 85 -h 65 -c foot 'footclient -a foot fish'"
 
-          "$mod1, b, exec, ${scripts.disSend}"
           "$mod1, o, exec, ${scripts.wlOcr}"
+          "$mod2, c, exec, ${scripts.rofiGpt}"
           "$mod1, p, exec, ${scripts.openMedia}"
           "$mod1, u, exec, ${scripts.rofiGuard}"
           "$mod1, w, exec, ${scripts.epubOpen}"
           "$mod1, i, exec, ${scripts.transLiner}"
-          "$mod1, y, exec, ${scripts.copyTwit}"
           "$mod1, v, exec, ${scripts.clipShow}"
           "$mod1, g, exec, ${scripts.glavaShow}"
           "$mod2, w, exec, ${scripts.wifiMenu}"

@@ -6,6 +6,8 @@
       right_format = "$cmd_duration";
       format = "$username$hostname$directory$git_branch$git_state$git_status$nix_shell$direnv$character";
 
+      command_timeout = 6075000;
+
       directory = {
         style = "${config.lib.stylix.colors.withHashtag.base0B}";
         truncation_length = 5;

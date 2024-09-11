@@ -8,7 +8,7 @@
 
   musicDirectory = music;
   changeScript = "ncmpcpp/on-song-change.sh";
-  fallbackImage = "$(fd . ${pkgs.my-walls}/share/wallpapers/ | sort -R | head -1)";
+  fallbackImage = "${pkgs.my-misc}/share/misc/miku.png";
 in {
   home.packages = [mpc-cli playerctl imagemagick inotify-tools cava streamrip html-xml-utils pup];
 

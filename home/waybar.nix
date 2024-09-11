@@ -18,7 +18,7 @@ in {
         layer = "top";
         position = "top";
         modules-left = ["hyprland/workspaces" "group/win"];
-        modules-center = ["image#cover" "group/music"];
+        # modules-center = ["image#cover" "group/music"];
         modules-right = ["battery" "network" "pulseaudio" "clock#date" "clock#time" "gamemode" "group/custom" "privacy" "tray"];
         "hyprland/workspaces" = {
           format = "{icon}";

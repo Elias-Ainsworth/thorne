@@ -58,26 +58,28 @@
     sptlrx = {
       enable = true;
       settings = {
-        player = "mpris";
-        host = "lyricsapi.vercel.app";
-        ignoreErrors = true;
-        timerInterval = 200;
-        updateInterval = 2000;
-        style = with config.lib.stylix.colors.withHashtag; {
-          hAlignment = "center";
-          before = {
-            foreground = base03;
-            bold = false;
-            faint = true;
-          };
-          current = {
-            foreground = base0B;
-            bold = true;
-            italic = true;
-          };
-          after.foreground = base03;
-        };
-        mpris.players = ["spotify_player" "mpv"];
+        player = "mpd";
+        mpd.address = "127.0.0.1:6600";
+        # player = "mpris";
+        # host = "lyricsapi.vercel.app";
+        # ignoreErrors = true;
+        # timerInterval = 200;
+        # updateInterval = 2000;
+        # style = with config.lib.stylix.colors.withHashtag; {
+        #   hAlignment = "center";
+        #   before = {
+        #     foreground = base03;
+        #     bold = false;
+        #     faint = true;
+        #   };
+        #   current = {
+        #     foreground = base0B;
+        #     bold = true;
+        #     italic = true;
+        #   };
+        #   after.foreground = base03;
+        # };
+        # mpris.players = ["spotify_player" "mpv"];
       };
     };
 

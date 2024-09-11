@@ -52,7 +52,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     focal = {
-      url = "github:elias-ainsworth/focal";
+      url = "github:iynaix/focal";
+      # url = "github:elias-ainsworth/focal";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     lobster.url = "github:justchokingaround/lobster";
