@@ -229,14 +229,15 @@ in {
           "$mod1, period, exec, ${lib.getExe pkgs.hdrop} -b -f -g 230 -w 85 -h 65 -c foot 'footclient -a foot fish'"
 
           "$mod1, o, exec, ${scripts.wlOcr}"
-          "$mod2, c, exec, ${scripts.rofiGpt}"
+          # "$mod2, c, exec, ${scripts.rofiGpt}"
           "$mod1, p, exec, ${scripts.openMedia}"
           "$mod1, u, exec, ${scripts.rofiGuard}"
           "$mod1, w, exec, ${scripts.epubOpen}"
+          "$mod2, w, exec, ${scripts.pdfOpen}"
           "$mod1, i, exec, ${scripts.transLiner}"
           "$mod1, v, exec, ${scripts.clipShow}"
           "$mod1, g, exec, ${scripts.glavaShow}"
-          "$mod2, w, exec, ${scripts.wifiMenu}"
+          "$mod2, c, exec, ${scripts.wifiMenu}"
 
           "$mod1, q, killactive,"
           "$mod1, x, togglesplit,"

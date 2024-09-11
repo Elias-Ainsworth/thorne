@@ -159,6 +159,21 @@ in {
       echo -en "''${i%.epub}\0icon\x1f$image\n"
     done | rofi -i -i -dmenu -display-column-separator "/" -display-columns 8 -theme preview -p "" | open
   '';
+  pdfOpen = writeShellScript "pdfOpen" ''
+    export PDF=true
+    pdfs=$(fd -e=pdf . $HOME/mda/bks/)
+    IFS="
+    "
+    open() {
+      file=$(cat -)
+      [ -n "$file" ] && zathura "$file.pdf"
+    }
+    for i in $pdfs; do
+      image="$(dirname "$i")/cover.png"
+      echo -en "''${i%.pdf}\0icon\x1f$image\n"
+    done | rofi -i -i -dmenu -display-column-separator "/" -display-columns 8 -theme preview -p "" | open
+  '';
+
   glavaShow = writeShellScript "glavaShow" ''
     id=$(pulsemixer -l | grep glava | sed -nE 's/.*ID: (.+?), Name.*/\1/p')
     ([ -n "$id" ] && pulsemixer --id $id --toggle-mute) || (tail -f /tmp/cover.info 2>/dev/null | glava --pipe=fg)
