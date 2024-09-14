@@ -150,6 +150,7 @@ in {
   environment.pathsToLink = ["/share/fish"];
   programs = {
     zsh.enable = true;
+    fish.enable = true;
 
     # hyprland.enable = true;
 
@@ -177,7 +178,7 @@ in {
     ${myUserName} = {
       isNormalUser = true;
       description = myName;
-      shell = pkgs.zsh;
+      shell = pkgs.fish;
       hashedPasswordFile = config.sops.secrets.user_pass.path;
       extraGroups = ["wheel" "libvirtd" "input"];
     };

@@ -8,6 +8,7 @@
     polarity = "dark";
     image = "${pkgs.my-walls}/share/wallpapers/oxocarbon.png";
     base16Scheme = inputs.nix-colors.colorSchemes.oxocarbon-dark;
+    # base16Scheme = inputs.nix-colors.colorSchemes.rose-pine;
     fonts = rec {
       serif = {
         package = pkgs.my-fonts;

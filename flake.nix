@@ -56,6 +56,10 @@
       # url = "github:elias-ainsworth/focal";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # zen-browser = {
+    #   url = "github:MarceColl/zen-browser-flake";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
     lobster.url = "github:justchokingaround/lobster";
     my-assets = {
       url = "github:Elias-Ainsworth/assets";

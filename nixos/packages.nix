@@ -18,6 +18,7 @@
     rsync
     ani-cli
     mangal
+    termusic
 
     ## bible
     lukesmithxyz-bible-kjv
@@ -30,6 +31,7 @@
     fd
     file
     sd
+    navi
     ripgrep
     procs
     rm-improved
@@ -77,6 +79,7 @@
     calibre
     vesktop
     firefox
+    # inputs.zen-browser.packages."${pkgs.system}".specific
     # librewolf
     qbittorrent
     nautilus
