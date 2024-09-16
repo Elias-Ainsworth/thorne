@@ -125,6 +125,7 @@
         inherit inputs nurNoPkgs;
         inherit pcName myUserName myName mailId;
       };
+
       modules = with inputs; [
         caches
         overlays

@@ -18,6 +18,13 @@
     rsync
     ani-cli
     mangal
+    (termusic.overrideAttrs (o: {
+      postPatch =
+        (o.postPatch or "")
+        + ''
+          cp ${./Oxocarbon-Dark.yml} lib/themes
+        '';
+    }))
     termusic
 
     ## bible
