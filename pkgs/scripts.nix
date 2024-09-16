@@ -7,10 +7,10 @@
   zenity = _ pkgs.gnome.zenity;
 in {
   focalPix = writeShellScript "focalCmd" ''
-    focal --rofi --slurp="-c#161616 -b#161616C0 -B#1616167F"
+    focal image --rofi --slurp="-c#161616 -b#161616C0 -B#1616167F"
   '';
   focalVid = writeShellScript "focalCmd" ''
-    focal --rofi --slurp="-c#161616 -b#161616C0 -B#1616167F" --video
+    focal video --rofi --slurp="-c#161616 -b#161616C0 -B#1616167F"
   '';
   wlOcr = writeShellScript "wlOcr" ''
     focal --rofi --slurp="-c#161616 -b#161616C0 -B#1616167F" --ocr eng+jpn+jpn_vert --no-save --no-notify
